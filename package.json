@@ -1,0 +1,25 @@
+{
+  "name": "my-lisp-syntax",
+  "displayName": "My-Lisp Syntax",
+  "description": "Syntax Highlighting for My-Lisp",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.73.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "lips",
+      "aliases": ["My-Lisp"],
+      "extensions": ["lips"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "lips",
+      "scopeName": "source.lips",
+      "path": "./syntaxes/lips.tmLanguage.json"
+    }]
+  }
+}

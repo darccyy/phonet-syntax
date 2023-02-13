@@ -1,0 +1,192 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Phonet",
+
+  "patterns": [
+    { "include": "#comment" },
+    { "include": "#semicolon" },
+    { "include": "#mode" },
+    { "include": "#class" },
+    { "include": "#rule" },
+    { "include": "#test" },
+    { "include": "#reason" },
+    { "include": "#note" },
+    { "include": "#multiline" }
+  ],
+
+  "repository": {
+    "comment": {
+      "comment": "Comments - Match preceding semicolon also",
+      "name": "comment.line.phonet",
+      "begin": "(^|;)\\s*#",
+      "end": "$"
+    },
+
+    "semicolon": {
+      "name": "keyword.operator.phonet",
+      "match": ";"
+    },
+
+    "ampersand": {
+      "name": "keyword.operator.phonet",
+      "match": "&"
+    },
+
+    "multiline": {
+      "match": "(?<=&)[^;]*.",
+      "name": "string",
+      "patterns": [{ "include": "#regex" }]
+    },
+
+    "mode": {
+      "comment": "Mode",
+      "name": "keyword.control.phonet",
+      "begin": "~\\s*",
+      "end": "\\s*(?=$|;)",
+      "patterns": [
+        {
+          "comment": "Mode Identifiers and Content",
+          "name": "keyword.control.phonet",
+          "match": "(/.*/|<.*>|\\[.*\\])?"
+        }
+      ]
+    },
+
+    "class": {
+      "comment": "Class Definitions",
+      "begin": "\\$\\w+",
+      "end": "(?=$|;)",
+      "beginCaptures": { "0": { "name": "entity.name.class.phonet" } },
+      "patterns": [
+        { "include": "#ampersand" },
+        {
+          "comment": "Regex after `=`",
+          "begin": "=",
+          "end": "(?=$|;)",
+          "beginCaptures": { "0": { "name": "keyword.operator.phonet" } },
+          "patterns": [{ "include": "#regex" }]
+        }
+      ]
+    },
+
+    "rule": {
+      "comment": "Rules",
+      "patterns": [
+        {
+          "comment": "Positive Rules",
+          "begin": "(?<=^|;)\\s*\\+",
+          "end": "(?=$|;)",
+          "beginCaptures": { "0": { "name": "keyword.control.phonet" } },
+          "patterns": [{ "include": "#regex" }]
+        },
+        {
+          "comment": "Negative Rules",
+          "begin": "(?<=^|;)\\s*!",
+          "end": "(?=$|;)",
+          "beginCaptures": { "0": { "name": "variable.language.self.phonet" } },
+          "patterns": [{ "include": "#regex" }]
+        }
+      ]
+    },
+
+    "test": {
+      "comment": "Tests",
+      "begin": "\\?\\s*(?=\\+|!)",
+      "end": "(?=$|;)",
+      "beginCaptures": { "0": { "name": "keyword.other.phonet" } },
+      "patterns": [
+        {
+          "comment": "Positive Tests",
+          "begin": "\\+",
+          "end": "(?=$|;)",
+          "beginCaptures": { "0": { "name": "keyword.control.phonet" } },
+          "patterns": [{ "include": "#ampersand" }]
+        },
+        {
+          "comment": "Negative Tests",
+          "begin": "!",
+          "end": "(?=$|;)",
+          "beginCaptures": { "0": { "name": "variable.language.self.phonet" } },
+          "patterns": [{ "include": "#ampersand" }]
+        }
+      ]
+    },
+
+    "reason": {
+      "comment": "Reasons",
+      "name": "string.phonet",
+      "begin": "(?<=^|;)\\s*@",
+      "end": "(?=$|;)",
+      "beginCaptures": { "0": { "name": "keyword.operator.phonet" } },
+      "patterns": [
+        {
+          "comment": "Noted Reasons",
+          "match": "(?<=@)\\s*\\*",
+          "name": "entity.name.function.phonet"
+        }
+      ]
+    },
+
+    "note": {
+      "comment": "Notes",
+      "name": "entity.name.function.phonet",
+      "begin": "(?<=^|;)\\s*\\*",
+      "end": "(?=$|;)",
+      "beginCaptures": { "0": { "name": "keyword.operator.phonet" } }
+    },
+
+    "regex": {
+      "patterns": [
+        { "include": "#ampersand" },
+        {
+          "comment": "Groups",
+          "begin": "\\(",
+          "end": "\\)",
+          "beginCaptures": { "0": { "name": "punctuation.brackets.phonet" } },
+          "endCaptures": { "0": { "name": "punctuation.brackets.phonet" } },
+          "patterns": [{ "include": "#regex" }]
+        },
+
+        {
+          "comment": "Named Group References",
+          "name": "keyword.other.phonet",
+          "match": "\\\\k\\s*<[^<>]+>"
+        },
+
+        {
+          "comment": "Operators and Lookarounds",
+          "name": "keyword.operator.phonet",
+          "match": "\\\\.|(?<=\\()\\?(<?(=|!)|:)|[\\[\\]\\|\\?\\+\\*\\.]|(?<=\\[)\\^"
+        },
+
+        {
+          "comment": "Named Group Definitions",
+          "name": "keyword.other.phonet",
+          "match": "(?<=\\(\\?)\\s*P?\\s*<[^<>]+>"
+        },
+
+        {
+          "comment": "Meta Characters and Negative Character Classes",
+          "name": "keyword.other.phonet",
+          "match": "(?<!\\[)\\^|\\$"
+        },
+
+        {
+          "comment": "Quantifiers",
+          "name": "keyword.operator.phonet",
+          "begin": "\\{",
+          "end": "\\}",
+          "match": "\\{(\\d+\\,?\\d*)\\}|\\{(\\d*\\,\\d+)\\}"
+        },
+
+        {
+          "comment": "Class References - Ascii `<>` or Special `⟨⟩`",
+          "name": "entity.name.type.phonet",
+          "match": "(?<!\\(\\?)(<\\w+>|⟨\\w+⟩)"
+        }
+      ]
+    }
+  },
+
+  "scopeName": "source.phonet"
+}
