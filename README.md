@@ -1,3 +1,3 @@
-# My-Lisp syntax
+# Phonet Syntax
 
-For [My-Lisp](https://github.com/darccyy/my-lisp)
+For [Phonet](https://github.com/darccyy/phonet)

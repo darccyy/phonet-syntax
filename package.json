@@ -1,7 +1,7 @@
 {
-  "name": "my-lisp-syntax",
-  "displayName": "My-Lisp Syntax",
-  "description": "Syntax Highlighting for My-Lisp",
+  "name": "phonet-syntax",
+  "displayName": "Phonet Syntax",
+  "description": "Syntax Highlighting for Phonet",
   "version": "0.1.0",
   "engines": {
     "vscode": "^1.73.0"
@@ -11,15 +11,15 @@
   ],
   "contributes": {
     "languages": [{
-      "id": "lips",
-      "aliases": ["My-Lisp"],
-      "extensions": ["lips"],
+      "id": "phonet",
+      "aliases": ["Phonet"],
+      "extensions": ["phonet"],
       "configuration": "./language-configuration.json"
     }],
     "grammars": [{
-      "language": "lips",
-      "scopeName": "source.lips",
-      "path": "./syntaxes/lips.tmLanguage.json"
+      "language": "phonet",
+      "scopeName": "source.phonet",
+      "path": "./syntaxes/phonet.tmLanguage.json"
     }]
   }
 }
