@@ -19,7 +19,7 @@
       "comment": "Comments - Match preceding semicolon also",
       "name": "comment.line.phonet",
       "begin": "(^|;)\\s*#",
-      "end": "$"
+      "end": "($|;)"
     },
 
     "semicolon": {
@@ -108,21 +108,6 @@
           "end": "(?=$|;)",
           "beginCaptures": { "0": { "name": "variable.language.self.phonet" } },
           "patterns": [{ "include": "#ampersand" }]
-        }
-      ]
-    },
-
-    "reason": {
-      "comment": "Reasons",
-      "name": "string.phonet",
-      "begin": "(?<=^|;)\\s*@",
-      "end": "(?=$|;)",
-      "beginCaptures": { "0": { "name": "keyword.operator.phonet" } },
-      "patterns": [
-        {
-          "comment": "Noted Reasons",
-          "match": "(?<=@)\\s*\\*",
-          "name": "entity.name.function.phonet"
         }
       ]
     },
